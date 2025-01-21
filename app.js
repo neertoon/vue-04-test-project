@@ -41,6 +41,16 @@ const app = Vue.createApp({
             const kickValue = getRandomValue(10, 25);
             this.bugHealth -= kickValue;
             this.bugKick();
+        },
+        heal() {
+            this.currentRound++;
+            let heal = getRandomValue(8, 20);
+            if (this.playerHealth + heal > 100) {
+                return;
+            }
+
+            this.playerHealth += heal;
+            this.bugKick();
         }
     }
 });
