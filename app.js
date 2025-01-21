@@ -7,6 +7,7 @@ const app = Vue.createApp({
         return {
             playerHealth: 100,
             bugHealth: 100,
+            currentRound: 0,
         }
     },
 
@@ -18,10 +19,15 @@ const app = Vue.createApp({
         playerHealthStyles() {
             return {width: this.playerHealth + '%'}
         },
+
+        mayUseSpecialKick() {
+            return this.currentRound % 3 !== 0;
+        }
     },
 
     methods: {
         ourKick() {
+            this.currentRound++;
             const kickValue = getRandomValue(5, 12);
             this.bugHealth -= kickValue;
             this.bugKick();
@@ -30,6 +36,12 @@ const app = Vue.createApp({
             const kickValue = getRandomValue(5, 12);
             this.playerHealth -= kickValue;
         },
+        specialKick() {
+            this.currentRound++;
+            const kickValue = getRandomValue(10, 25);
+            this.bugHealth -= kickValue;
+            this.bugKick();
+        }
     }
 });
 
