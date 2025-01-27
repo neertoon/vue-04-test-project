@@ -14,10 +14,17 @@ const app = Vue.createApp({
 
     computed: {
         bugHealthStyles() {
-          return {width: this.bugHealth + '%'}
+            if (this.bugHealth < 0) {
+                return { width: '0%'};
+            }
+            return {width: this.bugHealth + '%'}
         },
 
         playerHealthStyles() {
+            if (this.playerHealth < 0) {
+                return { width: '0%'};
+            }
+
             return {width: this.playerHealth + '%'}
         },
 
@@ -72,6 +79,15 @@ const app = Vue.createApp({
 
             this.playerHealth += heal;
             this.bugKick();
+        },
+        restart() {
+            this.playerHealth = 100;
+            this.bugHealth = 100;
+            this.winner = null;
+            this.currentRound = 0;
+        },
+        surrender() {
+            this.winner = 'bug';
         }
     }
 });
